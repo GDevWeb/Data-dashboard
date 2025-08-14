@@ -12,3 +12,5 @@ export function renderTable(
     console.error(error, "Error while rendering table");
   }
 }
+
+/* test */
