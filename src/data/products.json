@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "name": "Keyboard",
+    "category": "Peripherals",
+    "price": 49.9,
+    "rating": 4.2,
+    "stock": true
+  },
+  {
+    "id": 2,
+    "name": "Mouse",
+    "category": "Peripherals",
+    "price": 29.0,
+    "rating": 4.0,
+    "stock": true
+  },
+  {
+    "id": 3,
+    "name": "Monitor",
+    "category": "Display",
+    "price": 199.0,
+    "rating": 4.6,
+    "stock": false
+  },
+  {
+    "id": 4,
+    "name": "Webcam",
+    "category": "Peripherals",
+    "price": 79.9,
+    "rating": 3.8,
+    "stock": true
+  },
+  {
+    "id": 5,
+    "name": "Speakers",
+    "category": "Audio",
+    "price": 129.0,
+    "rating": 4.5,
+    "stock": true
+  },
+  {
+    "id": 6,
+    "name": "Microphone",
+    "category": "Audio",
+    "price": 99.0,
+    "rating": 4.1,
+    "stock": true
+  },
+  {
+    "id": 7,
+    "name": "Headphones",
+    "category": "Audio",
+    "price": 79.0,
+    "rating": 4.3,
+    "stock": true
+  },
+  {
+    "id": 8,
+    "name": "Graphics Card",
+    "category": "Components",
+    "price": 399.0,
+    "rating": 4.8,
+    "stock": false
+  },
+  {
+    "id": 9,
+    "name": "Processor",
+    "category": "Components",
+    "price": 299.0,
+    "rating": 4.7,
+    "stock": true
+  },
+  {
+    "id": 10,
+    "name": "Motherboard",
+    "category": "Components",
+    "price": 159.0,
+    "rating": 4.4,
+    "stock": true
+  },
+  {
+    "id": 11,
+    "name": "RAM",
+    "category": "Components",
+    "price": 79.0,
+    "rating": 4.0,
+    "stock": true
+  },
+  {
+    "id": 12,
+    "name": "SSD",
+    "category": "Storage",
+    "price": 109.0,
+    "rating": 4.6,
+    "stock": true
+  },
+  {
+    "id": 13,
+    "name": "HDD",
+    "category": "Storage",
+    "price": 59.0,
+    "rating": 3.9,
+    "stock": true
+  },
+  {
+    "id": 14,
+    "name": "Power Supply",
+    "category": "Components",
+    "price": 89.0,
+    "rating": 4.2,
+    "stock": true
+  },
+  {
+    "id": 15,
+    "name": "PC Case",
+    "category": "Components",
+    "price": 69.0,
+    "rating": 4.1,
+    "stock": false
+  },
+  {
+    "id": 16,
+    "name": "Gaming Chair",
+    "category": "Furniture",
+    "price": 189.0,
+    "rating": 4.5,
+    "stock": true
+  },
+  {
+    "id": 17,
+    "name": "Desk",
+    "category": "Furniture",
+    "price": 149.0,
+    "rating": 4.0,
+    "stock": true
+  },
+  {
+    "id": 18,
+    "name": "Webcam Cover",
+    "category": "Accessories",
+    "price": 9.9,
+    "rating": 3.5,
+    "stock": true
+  },
+  {
+    "id": 19,
+    "name": "USB Hub",
+    "category": "Accessories",
+    "price": 19.9,
+    "rating": 4.0,
+    "stock": true
+  },
+  {
+    "id": 20,
+    "name": "Monitor Stand",
+    "category": "Accessories",
+    "price": 39.9,
+    "rating": 4.2,
+    "stock": true
+  },
+  {
+    "id": 21,
+    "name": "Laptop",
+    "category": "Electronics",
+    "price": 899.0,
+    "rating": 4.7,
+    "stock": true
+  },
+  {
+    "id": 22,
+    "name": "Smartphone",
+    "category": "Electronics",
+    "price": 599.0,
+    "rating": 4.5,
+    "stock": true
+  },
+  {
+    "id": 23,
+    "name": "Tablet",
+    "category": "Electronics",
+    "price": 349.0,
+    "rating": 4.3,
+    "stock": false
+  },
+  {
+    "id": 24,
+    "name": "Smartwatch",
+    "category": "Wearables",
+    "price": 199.0,
+    "rating": 4.1,
+    "stock": true
+  },
+  {
+    "id": 25,
+    "name": "Fitness Tracker",
+    "category": "Wearables",
+    "price": 79.0,
+    "rating": 3.9,
+    "stock": true
+  },
+  {
+    "id": 26,
+    "name": "E-Reader",
+    "category": "Electronics",
+    "price": 129.0,
+    "rating": 4.4,
+    "stock": true
+  },
+  {
+    "id": 27,
+    "name": "Drone",
+    "category": "Gadgets",
+    "price": 299.0,
+    "rating": 4.0,
+    "stock": false
+  },
+  {
+    "id": 28,
+    "name": "Action Camera",
+    "category": "Gadgets",
+    "price": 149.0,
+    "rating": 4.2,
+    "stock": true
+  },
+  {
+    "id": 29,
+    "name": "Portable Speaker",
+    "category": "Audio",
+    "price": 59.0,
+    "rating": 4.1,
+    "stock": true
+  },
+  {
+    "id": 30,
+    "name": "External Hard Drive",
+    "category": "Storage",
+    "price": 89.0,
+    "rating": 4.3,
+    "stock": true
+  }
+]
