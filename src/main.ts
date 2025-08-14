@@ -1,13 +1,19 @@
 import products from "./data/products.json";
-import "./style.css";
 import type { Product } from "./types";
+import { renderTable } from "./ui/table";
 
 const productList: Product[] = products;
 
-function loadProducts(list: Product[]): Product[] | [] | string {
+const productTable: HTMLTableElement | null =
+  document.querySelector("#productTable");
+
+export function loadProducts(list: Product[]): Product[] | [] | string {
   try {
     if (list.length === 0) {
       return [];
+    }
+    if (productTable) {
+      renderTable(productTable, list);
     }
     console.log(list);
     return list;

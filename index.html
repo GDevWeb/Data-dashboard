@@ -1,13 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <title>Data dashboard</title>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.ts" defer></script>
+
+    <main>
+      <section>
+        <h1 class="text-3xl text-center font-bold underline py-6">
+          Data dashboard
+        </h1>
+      </section>
+      <section>
+        <table id="productTable" class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr
+              class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              <th class="px-6 py-3">Product</th>
+              <th class="px-6 py-3">Price</th>
+              <th class="px-6 py-3">Availability</th>
+              <th class="px-6 py-3">Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">Laptop</td>
+              <td class="px-6 py-4 whitespace-nowrap">$1200</td>
+              <td class="px-6 py-4 whitespace-nowrap">In Stock</td>
+              <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">Mouse</td>
+              <td class="px-6 py-4 whitespace-nowrap">$25</td>
+              <td class="px-6 py-4 whitespace-nowrap">In Stock</td>
+              <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">Keyboard</td>
+              <td class="px-6 py-4 whitespace-nowrap">$75</td>
+              <td class="px-6 py-4 whitespace-nowrap">Out of Stock</td>
+              <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">Monitor</td>
+              <td class="px-6 py-4 whitespace-nowrap">$300</td>
+              <td class="px-6 py-4 whitespace-nowrap">In Stock</td>
+              <td class="px-6 py-4 whitespace-nowrap">Electronics</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">Desk Chair</td>
+              <td class="px-6 py-4 whitespace-nowrap">$150</td>
+              <td class="px-6 py-4 whitespace-nowrap">In Stock</td>
+              <td class="px-6 py-4 whitespace-nowrap">Furniture</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
   </body>
 </html>
