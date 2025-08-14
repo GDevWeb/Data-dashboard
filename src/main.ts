@@ -1,15 +1,15 @@
 import products from "./data/products.json";
-import "./style.css";
 import type { Product } from "./types";
+import { renderTable } from "./ui/table";
 
 const productList: Product[] = products;
+type LoadProducts = Product[] | [];
 
-function loadProducts(list: Product[]): Product[] | [] | string {
+export function loadProducts(list: Product[]): LoadProducts {
   try {
     if (list.length === 0) {
       return [];
     }
-    console.log(list);
     return list;
   } catch (error) {
     console.error(error, "Error while loading product list");
@@ -18,4 +18,14 @@ function loadProducts(list: Product[]): Product[] | [] | string {
     return list.length > 0 ? list : [];
   }
 }
-loadProducts(productList);
+
+/* ***init*** */
+const loadedProducts = loadProducts(productList);
+
+/* ***DOMElements*** */
+const productTable: HTMLTableElement | null =
+  document.querySelector("#productTable");
+
+if (productTable) {
+  renderTable(productTable, loadedProducts);
+}
