@@ -15,20 +15,20 @@ export function renderTable(
       container.innerHTML = `
         <thead class="bg-gray-50">
           <tr class="text-center text-lg font-medium text-gray-500 uppercase tracking-wider">
-            <th data-filter="id" px-6 py-3>ID</th>
-            <th data-filter="name" px-6 py-3>Name
+            <th data-filter="id" class="px-6 py-3">ID</th>
+            <th data-filter="name" class="px-6 py-3">Name
             </th>
-            <th data-filter="category" px-6 py-3>Category
+            <th data-filter="category" class="px-6 py-3">Category
             </th>
-            <th data-filter="price" px-6 py-3>Price
+            <th data-filter="price" class="px-6 py-3">Price
               <button data-sort-price="asc" type="button" class="sort-button" data-sort-key="price" data-sort-dir="asc">▲</button>
               <button data-sort-price="desc" type="button" class="sort-button" data-sort-key="price" data-sort-dir="desc">▼</button>
             </th>
-            <th data-filter="rating" px-6 py-3>Rating
+            <th data-filter="rating" class="px-6 py-3">Rating
               <button data-sort-rating="asc" type="button" class="sort-button" data-sort-key="rating" data-sort-dir="asc">▲</button>
               <button data-sort-rating="desc" type="button" class="sort-button" data-sort-key="rating" data-sort-dir="desc">▼</button>
             </th>
-            <th data-filter="stock" px-6 py-3>Stock
+            <th data-filter="stock" class="px-6 py-3">Stock
             </th>
           </tr>
         </thead>
