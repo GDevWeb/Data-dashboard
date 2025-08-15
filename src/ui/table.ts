@@ -8,6 +8,7 @@ export function renderTable(
   try {
     if (data.length === 0) {
       container.innerHTML = "No product available for the moment";
+      return;
     }
 
     if (container && data) {

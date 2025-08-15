@@ -8,17 +8,7 @@ const productList: Product[] = products;
 type LoadProducts = Product[] | [];
 
 export function loadProducts(list: Product[]): LoadProducts {
-  try {
-    if (list.length === 0) {
-      return [];
-    }
-    return list;
-  } catch (error) {
-    console.error(error, "Error while loading product list");
-  } finally {
-    console.log("Loading product list completed");
-    return list.length > 0 ? list : [];
-  }
+  return list.length > 0 ? list : [];
 }
 
 /* ***init*** */
