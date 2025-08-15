@@ -1,4 +1,6 @@
+import { state } from "./core/state";
 import products from "./data/products.json";
+import { sort } from "./logic/sort";
 import type { Product } from "./types";
 import { renderTable } from "./ui/table";
 
@@ -29,3 +31,6 @@ const productTable: HTMLTableElement | null =
 if (productTable) {
   renderTable(productTable, loadedProducts);
 }
+
+sort(loadedProducts, "price", "asc");
+state(loadedProducts, "price", "asc");
