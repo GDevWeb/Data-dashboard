@@ -8,3 +8,5 @@ export interface Product {
 }
 
 export type SortKey = keyof Product;
+
+export type Dir = "asc" | "desc";

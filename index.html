@@ -12,16 +12,82 @@
     <script type="module" src="/src/main.ts" defer></script>
 
     <main>
-      <section>
+      <section class="my-4">
         <h1 class="text-3xl text-center font-bold underline py-6">
           Data dashboard
         </h1>
       </section>
-      <section>
+      <section class="my-4">
+        <div class="flex items-center justify-around">
+          <div id="sortByCategory">
+            <p>
+              Sort by category
+              <select
+                name="filterSelect"
+                id="filterSelect"
+                title="Filter by category"
+                class="p-2 border-2 rounded"
+              >
+                <option value="" selected="default">--All--</option>
+              </select>
+            </p>
+          </div>
+          <div class="flex items-center justify-end p-4 gap-4">
+            <input
+              type="text"
+              name="inputFilter"
+              id="inputFilter"
+              placeholder="Type name or category"
+              class="p-2 border-2 rounded"
+            />
+          </div>
+          <div id="sortByStock">
+            <p>
+              Sort by stock
+              <select
+                name="filterByStock"
+                id="filterByStock"
+                title="Filter by stock"
+                class="p-2 border-2 rounded"
+              >
+                <option value="" selected="default">--All--</option>
+                <option value="true">In stock</option>
+                <option value="false">Out of stock</option>
+              </select>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="my-4">
         <table
           id="productTable"
           class="min-w-full divide-y divide-gray-200"
         ></table>
+      </section>
+      <section>
+        <div
+          id="pagination-container"
+          class="flex items-center justify-around p-4 bg-gray-50"
+        >
+          <button
+            type="button"
+            id="prev-page"
+            class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
+          >
+            Previous
+          </button>
+          <ul>
+            DYNAMICALLY CREATE PAGINATION HERE
+          </ul>
+
+          <button
+            type="button"
+            id="next-page"
+            class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
+          >
+            Next
+          </button>
+        </div>
       </section>
     </main>
   </body>
