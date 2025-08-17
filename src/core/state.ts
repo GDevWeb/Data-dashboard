@@ -1,4 +1,4 @@
-import { byCategory, textFilter } from "../logic/filter";
+import { byCategory, byStock, textFilter } from "../logic/filter";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
 import { renderTable } from "../ui/table";
@@ -10,6 +10,9 @@ const inputFilter: HTMLInputElement | null =
 const selectFilter: HTMLSelectElement | null = document.querySelector(
   "select#filterSelect"
 );
+const selectFilterByStock: HTMLSelectElement | null = document.querySelector(
+  "select#filterByStock"
+);
 
 export const appState = {
   allData: [] as Product[],
@@ -18,6 +21,7 @@ export const appState = {
   sortDir: "asc" as Dir,
   searchText: "",
   searchCategory: "",
+  searchStock: "",
 };
 
 export function initState(products: Product[]) {
@@ -29,14 +33,12 @@ export function updateSate(
   partial: Partial<
     Pick<
       typeof appState,
-      "sortKey" | "sortDir" | "searchText" | "searchCategory"
+      "sortKey" | "sortDir" | "searchText" | "searchCategory" | "searchStock"
     >
   >
 ) {
   Object.assign(appState, partial);
   let data = [...appState.allData];
-
-  // sort - filter and pagination in next steps
 
   // 1. set on filter
   data = textFilter(data, appState.searchText);
@@ -45,9 +47,16 @@ export function updateSate(
   data = byCategory(data, appState.searchCategory);
   console.log("From state - data = byCategory", data);
 
-  // 3. set on sort
+  let stockValue: true | false | "" = "";
+  if (appState.searchStock === "true") stockValue = true;
+  else if (appState.searchStock === "false") stockValue = false;
+
+  data = byStock(data, stockValue);
+
+  // 4. set on sort
   data = sort(data, appState.sortKey, appState.sortDir);
 
+  // 5.pagination in next steps
   appState.visibleData = data;
 
   const table = document.querySelector(
@@ -70,3 +79,11 @@ selectFilter?.addEventListener(
     updateSate({ searchCategory: selectFilter.value || "" });
   }, 0)
 );
+
+selectFilterByStock?.addEventListener(
+  "change",
+  debounce(() => {
+    updateSate({ searchStock: selectFilterByStock.value || "" });
+  }, 0)
+);
+console.log("selectFilterByStock.value", selectFilterByStock?.value);

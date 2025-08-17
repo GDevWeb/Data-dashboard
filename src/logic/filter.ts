@@ -30,9 +30,14 @@ export function byCategory(products: Product[], category?: string): Product[] {
   );
 }
 
-// export function byStock(
-//   products: Product[],
-//   value: true | false | "all"
-// ): Product[] {
-//   return [];
-// }
+export function byStock(
+  products: Product[],
+  value: true | false | ""
+): Product[] {
+  if (value === "") {
+    return products;
+  }
+  console.log(value);
+
+  return products.filter((product) => product.stock === value);
+}

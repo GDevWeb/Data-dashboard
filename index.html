@@ -19,10 +19,9 @@
       </section>
       <section class="my-4">
         <div class="flex items-center justify-around">
-          <div>
+          <div id="sortByCategory">
             <p>
               Sort by category
-
               <select
                 name="filterSelect"
                 id="filterSelect"
@@ -41,6 +40,21 @@
               placeholder="Type name or category"
               class="p-2 border-2 rounded"
             />
+          </div>
+          <div id="sortByStock">
+            <p>
+              Sort by stock
+              <select
+                name="filterByStock"
+                id="filterByStock"
+                title="Filter by stock"
+                class="p-2 border-2 rounded"
+              >
+                <option value="" selected="default">--All--</option>
+                <option value="true">In stock</option>
+                <option value="false">Out of stock</option>
+              </select>
+            </p>
           </div>
         </div>
       </section>

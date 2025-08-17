@@ -55,8 +55,8 @@ export function renderTable(
               }</td>
               <td class="text-center px-6 py-4 whitespace-nowrap">${
                 item.stock
-                  ? `<span class="text-green-500">available</span>`
-                  : `<span class="text-red-500">out of stock</span>`
+                  ? `<span class="text-green-500">In stock</span>`
+                  : `<span class="text-red-500">Out of stock</span>`
               }</td>
             </tr>
           `
