@@ -1,4 +1,5 @@
 import { byCategory, byStock, textFilter } from "../logic/filter";
+import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
 import { renderTable } from "../ui/table";
@@ -22,6 +23,8 @@ export const appState = {
   searchText: "",
   searchCategory: "",
   searchStock: "",
+  currentPage: 1,
+  itemsPerPage: 10,
 };
 
 export function initState(products: Product[]) {
@@ -33,7 +36,13 @@ export function updateSate(
   partial: Partial<
     Pick<
       typeof appState,
-      "sortKey" | "sortDir" | "searchText" | "searchCategory" | "searchStock"
+      | "sortKey"
+      | "sortDir"
+      | "searchText"
+      | "searchCategory"
+      | "searchStock"
+      | "currentPage"
+      | "itemsPerPage"
     >
   >
 ) {
@@ -57,7 +66,11 @@ export function updateSate(
   data = sort(data, appState.sortKey, appState.sortDir);
 
   // 5.pagination in next steps
-  appState.visibleData = data;
+  appState.visibleData = paginate(
+    data,
+    appState.currentPage,
+    appState.itemsPerPage
+  );
 
   const table = document.querySelector(
     "#productTable"
