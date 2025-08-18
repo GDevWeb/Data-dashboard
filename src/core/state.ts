@@ -1,6 +1,11 @@
 import { byCategory, byStock, textFilter } from "../logic/filter";
+import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
+import {
+  createPagination,
+  paginationDOMElements,
+} from "../ui/paginationController";
 import { renderTable } from "../ui/table";
 import { debounce } from "./utils";
 
@@ -22,10 +27,17 @@ export const appState = {
   searchText: "",
   searchCategory: "",
   searchStock: "",
+  currentPage: 1,
+  itemsPerPage: 10,
+  totalPages: 0,
 };
 
 export function initState(products: Product[]) {
   appState.allData = products;
+  appState.totalPages = Math.ceil(
+    appState.allData.length / appState.itemsPerPage
+  );
+  createPagination(appState.totalPages, appState.currentPage, updateSate);
   updateSate({});
 }
 
@@ -33,7 +45,13 @@ export function updateSate(
   partial: Partial<
     Pick<
       typeof appState,
-      "sortKey" | "sortDir" | "searchText" | "searchCategory" | "searchStock"
+      | "sortKey"
+      | "sortDir"
+      | "searchText"
+      | "searchCategory"
+      | "searchStock"
+      | "currentPage"
+      | "itemsPerPage"
     >
   >
 ) {
@@ -57,15 +75,41 @@ export function updateSate(
   data = sort(data, appState.sortKey, appState.sortDir);
 
   // 5.pagination in next steps
-  appState.visibleData = data;
+  appState.visibleData = paginate(
+    data,
+    appState.currentPage,
+    appState.itemsPerPage
+  );
 
+  appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
+  createPagination(appState.totalPages, appState.currentPage, updateSate);
+
+  // *** Extract logic*** //
+  if (paginationDOMElements.prevButton) {
+    paginationDOMElements.prevButton.disabled = appState.currentPage <= 1;
+  }
+
+  if (paginationDOMElements.nextButton) {
+    paginationDOMElements.nextButton.disabled =
+      appState.currentPage >= appState.totalPages;
+  }
+
+  if (appState.totalPages <= 1) {
+    paginationDOMElements.prevButton?.classList.add("disabled");
+    paginationDOMElements.nextButton?.classList.add("disabled");
+  } else {
+    paginationDOMElements.prevButton?.classList.remove("disabled");
+    paginationDOMElements.nextButton?.classList.remove("disabled");
+  }
+
+  // ***Table***
   const table = document.querySelector(
     "#productTable"
   ) as HTMLTableElement | null;
   if (table) renderTable(table, appState.visibleData);
 }
 
-/* DOMElements */
+// ***Filters***
 inputFilter?.addEventListener(
   "input",
   debounce(() => {
@@ -86,4 +130,26 @@ selectFilterByStock?.addEventListener(
     updateSate({ searchStock: selectFilterByStock.value || "" });
   }, 0)
 );
-console.log("selectFilterByStock.value", selectFilterByStock?.value);
+
+/* ***Pagination*** */
+paginationDOMElements.prevButton?.addEventListener("click", () => {
+  if (appState.currentPage > 1) {
+    updateSate({ currentPage: appState.currentPage - 1 });
+  }
+});
+
+paginationDOMElements.nextButton?.addEventListener("click", () => {
+  if (appState.currentPage < appState.totalPages) {
+    updateSate({ currentPage: appState.currentPage + 1 });
+  }
+});
+
+const itemsPerPageSelect: HTMLSelectElement | null =
+  document.querySelector("#itemsPerPage");
+
+itemsPerPageSelect?.addEventListener("change", () => {
+  updateSate({
+    itemsPerPage: Number(itemsPerPageSelect.value),
+    currentPage: 1,
+  });
+});
