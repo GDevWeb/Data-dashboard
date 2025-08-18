@@ -1,7 +1,7 @@
 import { initState, updateSate } from "./core/state";
 import products from "./data/products.json";
 import { textFilter } from "./logic/filter";
-import { createSelectOptions } from "./ui/controls";
+import { createSelectOptions } from "./ui/selectOptionsContoller";
 
 /* ***Init app */
 initState(products);

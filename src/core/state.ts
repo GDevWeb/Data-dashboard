@@ -2,6 +2,7 @@ import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
+import { createPagination } from "../ui/paginationController";
 import { renderTable } from "../ui/table";
 import { debounce } from "./utils";
 
@@ -25,10 +26,15 @@ export const appState = {
   searchStock: "",
   currentPage: 1,
   itemsPerPage: 10,
+  totalPages: 0,
 };
 
 export function initState(products: Product[]) {
   appState.allData = products;
+  appState.totalPages = Math.ceil(
+    appState.allData.length / appState.itemsPerPage
+  );
+  createPagination(appState.totalPages, appState.currentPage, updateSate);
   updateSate({});
 }
 
@@ -72,13 +78,14 @@ export function updateSate(
     appState.itemsPerPage
   );
 
+  // ***Table***
   const table = document.querySelector(
     "#productTable"
   ) as HTMLTableElement | null;
   if (table) renderTable(table, appState.visibleData);
 }
 
-/* DOMElements */
+// ***Filters***
 inputFilter?.addEventListener(
   "input",
   debounce(() => {
@@ -100,3 +107,31 @@ selectFilterByStock?.addEventListener(
   }, 0)
 );
 console.log("selectFilterByStock.value", selectFilterByStock?.value);
+
+/* ***Pagination*** */
+const prevButton: HTMLButtonElement | null =
+  document.querySelector("#prev-button");
+const nextButton: HTMLButtonElement | null =
+  document.querySelector("#next-button");
+
+prevButton?.addEventListener("click", () => {
+  if (appState.currentPage > 1) {
+    updateSate({ currentPage: appState.currentPage - 1 });
+  }
+});
+
+nextButton?.addEventListener("click", () => {
+  if (appState.currentPage < appState.totalPages) {
+    updateSate({ currentPage: appState.currentPage + 1 });
+  }
+});
+
+const itemsPerPageSelect: HTMLSelectElement | null =
+  document.querySelector("#itemsPerPage");
+
+itemsPerPageSelect?.addEventListener("change", () => {
+  updateSate({
+    itemsPerPage: Number(itemsPerPageSelect.value),
+    currentPage: 1,
+  });
+});

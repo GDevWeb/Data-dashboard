@@ -58,12 +58,16 @@
           </div>
         </div>
       </section>
+
+      <!-- Section Table -->
       <section class="my-4">
         <table
           id="productTable"
           class="min-w-full divide-y divide-gray-200"
         ></table>
       </section>
+
+      <!-- Section pagination -->
       <section>
         <div
           id="pagination-container"
@@ -71,18 +75,19 @@
         >
           <button
             type="button"
-            id="prev-page"
+            id="prev-button"
             class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
           >
             Previous
           </button>
-          <ul>
-            DYNAMICALLY CREATE PAGINATION HERE
-          </ul>
+          <ul
+            id="pagination-numbers"
+            class="w-full flex items-center justify-center gap-2"
+          ></ul>
 
           <button
             type="button"
-            id="next-page"
+            id="next-button"
             class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
           >
             Next

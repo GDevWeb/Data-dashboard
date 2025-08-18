@@ -19,16 +19,3 @@ export function createSelectOptions(products: Product[]): void {
     selectFilter?.appendChild(option);
   });
 }
-
-/* ***Pagination*** */
-function pagination() {
-  const paginationContainer: HTMLDivElement | null = document.querySelector(
-    "#pagination-container"
-  );
-  const prevButton: HTMLButtonElement | null =
-    document.querySelector("#prev-button");
-  const nextButton: HTMLButtonElement | null =
-    document.querySelector("#next-button");
-  const pageNumbers: HTMLDivElement | null =
-    document.querySelector("#page-numbers");
-}
