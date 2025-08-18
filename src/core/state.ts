@@ -2,7 +2,10 @@ import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
-import { createPagination } from "../ui/paginationController";
+import {
+  createPagination,
+  paginationDOMElements,
+} from "../ui/paginationController";
 import { renderTable } from "../ui/table";
 import { debounce } from "./utils";
 
@@ -78,6 +81,27 @@ export function updateSate(
     appState.itemsPerPage
   );
 
+  appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
+  createPagination(appState.totalPages, appState.currentPage, updateSate);
+
+  // *** Extract logic*** //
+  if (paginationDOMElements.prevButton) {
+    paginationDOMElements.prevButton.disabled = appState.currentPage <= 1;
+  }
+
+  if (paginationDOMElements.nextButton) {
+    paginationDOMElements.nextButton.disabled =
+      appState.currentPage >= appState.totalPages;
+  }
+
+  if (appState.totalPages <= 1) {
+    paginationDOMElements.prevButton?.classList.add("disabled");
+    paginationDOMElements.nextButton?.classList.add("disabled");
+  } else {
+    paginationDOMElements.prevButton?.classList.remove("disabled");
+    paginationDOMElements.nextButton?.classList.remove("disabled");
+  }
+
   // ***Table***
   const table = document.querySelector(
     "#productTable"
@@ -106,21 +130,15 @@ selectFilterByStock?.addEventListener(
     updateSate({ searchStock: selectFilterByStock.value || "" });
   }, 0)
 );
-console.log("selectFilterByStock.value", selectFilterByStock?.value);
 
 /* ***Pagination*** */
-const prevButton: HTMLButtonElement | null =
-  document.querySelector("#prev-button");
-const nextButton: HTMLButtonElement | null =
-  document.querySelector("#next-button");
-
-prevButton?.addEventListener("click", () => {
+paginationDOMElements.prevButton?.addEventListener("click", () => {
   if (appState.currentPage > 1) {
     updateSate({ currentPage: appState.currentPage - 1 });
   }
 });
 
-nextButton?.addEventListener("click", () => {
+paginationDOMElements.nextButton?.addEventListener("click", () => {
   if (appState.currentPage < appState.totalPages) {
     updateSate({ currentPage: appState.currentPage + 1 });
   }
