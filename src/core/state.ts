@@ -1,11 +1,4 @@
-import {
-  byCategory,
-  byStock,
-  inputFilter,
-  selectFilter,
-  selectFilterByStock,
-  textFilter,
-} from "../logic/filter";
+import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
@@ -14,8 +7,12 @@ import {
   nextButton,
   prevButton,
 } from "../ui/paginationController";
+import {
+  renderSummary,
+  summaryCurrentContainer,
+  summaryGlobalContainer,
+} from "../ui/summary";
 import { renderTable } from "../ui/table";
-import { debounce } from "./utils";
 
 export const appState = {
   allData: [] as Product[],
@@ -83,7 +80,7 @@ export function updateSate(
   appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
   createPagination(appState.totalPages, appState.currentPage, updateSate);
 
-  // *** Extract logic*** //
+  // *** Extract logic***
   if (prevButton) {
     prevButton.disabled = appState.currentPage <= 1;
   }
@@ -98,6 +95,15 @@ export function updateSate(
   } else {
     prevButton?.classList.remove("disabled");
     nextButton?.classList.remove("disabled");
+  }
+
+  // Summary
+  if (summaryGlobalContainer) {
+    renderSummary(summaryGlobalContainer, appState.allData);
+  }
+
+  if (summaryCurrentContainer) {
+    renderSummary(summaryCurrentContainer, appState.visibleData);
   }
 
   // ***Table***

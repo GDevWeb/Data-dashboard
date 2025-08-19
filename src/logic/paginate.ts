@@ -17,4 +17,6 @@ export function paginate(
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   return products.slice(startIndex, endIndex);
+
+  /* limit by group of 10 and next button */
 }

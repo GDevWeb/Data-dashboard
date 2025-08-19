@@ -9,52 +9,77 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts" defer></script>
+    <script type="module" src="/src/main.ts"></script>
 
-    <main>
+    <main class="container mx-auto p-4">
       <section class="my-4">
         <h1 class="text-3xl text-center font-bold underline py-6">
           Data dashboard
         </h1>
       </section>
+
+      <!-- Summary -->
+      <div id="summary-container" class="flex flex-wrap items-center gap-2">
+        <section class="w-full">
+          <h3 class="text-2xl text-center font-bold underline py-4">
+            Summary Global view
+          </h3>
+          <div
+            id="summary-global-container"
+            class="flex justify-around items-center p-4 bg-gray-100 rounded"
+          ></div>
+        </section>
+
+        <section class="w-full">
+          <h3 class="text-2xl text-center font-bold underline py-4">
+            Summary Current View
+          </h3>
+          <div
+            id="summary-current-container"
+            class="flex justify-around items-center p-4 bg-gray-100 rounded"
+          ></div>
+        </section>
+      </div>
+
+      <!-- FilterContainer -->
       <section class="my-4">
-        <div id="filterContainer" class="flex items-center justify-around">
-          <div id="sortByCategory">
-            <p>
-              Sort by category
-              <select
-                name="filterSelect"
-                id="filterSelect"
-                title="Filter by category"
-              >
-                <option value="" selected="default">--All--</option>
-              </select>
-            </p>
+        <div
+          id="filterContainer"
+          class="flex flex-wrap items-end justify-center gap-8"
+        >
+          <div>
+            <label for="filterSelect">Sort by category</label>
+            <select
+              name="filterSelect"
+              id="filterSelect"
+              title="Filter by category"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="" selected>--All--</option>
+            </select>
           </div>
-          <div class="flex items-center justify-end p-4 gap-4">
-            <p>
-              Search by name or category
-              <input
-                type="text"
-                name="inputFilter"
-                id="inputFilter"
-                placeholder="Type name or category"
-              />
-            </p>
+          <div>
+            <label for="inputFilter">Search by name or category</label>
+            <input
+              type="text"
+              name="inputFilter"
+              id="inputFilter"
+              placeholder="Type name or category"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
           </div>
-          <div id="sortByStock">
-            <p>
-              Sort by stock
-              <select
-                name="filterByStock"
-                id="filterByStock"
-                title="Filter by stock"
-              >
-                <option value="" selected="default">--All--</option>
-                <option value="true">In stock</option>
-                <option value="false">Out of stock</option>
-              </select>
-            </p>
+          <div>
+            <label for="filterByStock">Sort by stock</label>
+            <select
+              name="filterByStock"
+              id="filterByStock"
+              title="Filter by stock"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="" selected>--All--</option>
+              <option value="true">In stock</option>
+              <option value="false">Out of stock</option>
+            </select>
           </div>
         </div>
       </section>
@@ -73,11 +98,7 @@
           id="pagination-container"
           class="flex items-center justify-around p-4 bg-gray-50"
         >
-          <button
-            type="button"
-            id="prev-button"
-            class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
-          >
+          <button type="button" id="prev-button" class="buttonPagination">
             Previous
           </button>
           <ul
@@ -85,11 +106,7 @@
             class="w-full flex items-center justify-center gap-2"
           ></ul>
 
-          <button
-            type="button"
-            id="next-button"
-            class="cursor-pointer px-4 py-2 text-white bg-slate-500 rounded transform: scale-105 transition-all duration-300 ease-in-out hover:bg-slate-600"
-          >
+          <button type="button" id="next-button" class="buttonPagination">
             Next
           </button>
         </div>
