@@ -104,30 +104,9 @@ export function updateSate(
   const table = document.querySelector(
     "#productTable"
   ) as HTMLTableElement | null;
+
   if (table) renderTable(table, appState.visibleData);
 }
-
-// ***Filters***
-inputFilter?.addEventListener(
-  "input",
-  debounce(() => {
-    updateSate({ searchText: inputFilter?.value.toLowerCase() || "" });
-  }, 500)
-);
-
-selectFilter?.addEventListener(
-  "change",
-  debounce(() => {
-    updateSate({ searchCategory: selectFilter?.value || "" });
-  }, 0)
-);
-
-selectFilterByStock?.addEventListener(
-  "change",
-  debounce(() => {
-    updateSate({ searchStock: selectFilterByStock?.value || "" });
-  }, 0)
-);
 
 /* ***Pagination*** */
 prevButton?.addEventListener("click", () => {

@@ -1,3 +1,6 @@
+/**
+ * DOM elements related to pagination.
+ */
 export const paginationDOMElements = {
   paginationContainer: document.querySelector(
     "#pagination-numbers"
@@ -22,6 +25,13 @@ export const {
 } = paginationDOMElements;
 
 /* ***Pagination*** */
+/**
+ * Creates pagination buttons and appends them to the pagination container.
+ * @param totalPages The total number of pages.
+ * @param state The current page number.
+ * @param func The function to call when a page button is clicked.
+ */
+
 export function createPagination(
   totalPages: number,
   state: Object,
@@ -49,9 +59,14 @@ export function createPagination(
       });
       paginationContainer.appendChild(pageButton);
     }
-    createSelectElementsPerPage(paginationContainer, func);
   }
 }
+
+/**
+ * Creates a select element for choosing the number of items per page and appends it to the pagination container.
+ * @param paginationContainer The HTML element to which the select element will be appended.
+ * @param obj The function to call when the select element's value changes.
+ */
 
 export function createSelectElementsPerPage(
   paginationContainer: HTMLElement,
