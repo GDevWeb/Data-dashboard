@@ -11,7 +11,7 @@
 - [x] **Day 2 — Render Table (Read‑Only)**
 - [x] **Day 3 — Sorting (Click Headers)**
 - [x] **Day 4 — Search & Filter**
-- [] **Day 5 — Pagination + Summary**
+- [x] **Day 5 — Pagination + Summary**
 - [ ] **Day 6 — Polish, Error Handling, Refactor**
 
 ---
@@ -24,7 +24,7 @@
 - [x] Sorting (headers, arrow, stable)
 - [x] Search (debounced), Filter (category/stock)
 - [x] Pagination (configurable page size)
-- [ ] Summary (count, avg/min/max, % stock)
+- [x] Summary (count, avg/min/max, % stock)
 - [ ] Empty/loading/error states
 - [ ] Utils & refactor
 - [ ] (Opt) Persist state / CSV / tests

@@ -1,148 +1,80 @@
 # Data Dashboard – Vanilla TypeScript + Vite
 
-## Présentation
+<div style="text-align:center">
+<img src= "./public/data-dashboard.png" alt="Data Dashboard Social Card" style="width:80%; border-radius:10px">
+</div>
 
-Ce projet est un **tableau de bord de données autonome** développé avec **TypeScript**, **ES Modules**, **Tailwind CSS** et **Vite**, sans aucun framework frontend.
-Son objectif principal est de **réviser et démontrer** la maîtrise des concepts clés JavaScript/TypeScript, des workflows modernes et de la construction d’interface utilisateur propre en utilisant uniquement les API du navigateur et une architecture modulaire.
+## Présentation du projet
 
----
+Ce projet est un **tableau de bord de données interactif** construit de zéro en utilisant **TypeScript**, **Vite** et **Tailwind CSS**. Il a été conçu comme un exercice de révision pour consolider les fondamentaux de la programmation web sans aucun framework frontend.
 
-## Objectifs du projet
-
-- **Révision technique**
-  Consolider les connaissances en JavaScript et TypeScript, notamment :
-
-  - Définition de types stricts et utilisation des génériques
-  - Organisation modulaire du code (`core/`, `logic/`, `ui/`)
-  - Manipulation du DOM sans framework
-  - Création d’utilitaires réutilisables
-
-- **Développement UI**
-  Créer une interface tableau réactive et maintenable avec :
-
-  - Tri (numérique et textuel)
-  - Recherche et filtres
-  - Pagination
-  - Statistiques en temps réel
-
-- **Pratique du style**
-  Utiliser **Tailwind CSS** pour un style rapide, clair et sans composants préfabriqués.
-
-- **Préparation professionnelle**
-  Produire un exemple prêt pour un portfolio, mettant en avant :
-
-  - La capacité à concevoir une architecture claire et modulaire
-  - La compréhension des flux de données (filtrer → trier → paginer)
-  - Des compétences transférables sur des environnements avec ou sans framework
+L'objectif est de démontrer une maîtrise des **API du navigateur**, des **modules ES** et d'une architecture de code propre et modulaire.
 
 ---
 
-## Fonctionnalités
+## Fonctionnalités principales
 
-- **Colonnes triables** (ordre croissant/décroissant)
-- **Barre de recherche** avec délai (debounce) pour un filtrage fluide
-- **Filtre par catégorie ou disponibilité** depuis le jeu de données
-- **Pagination côté client** avec taille de page configurable
-- **Statistiques dynamiques** sur l’ensemble filtré :
-
-  - Nombre d’éléments
-  - Prix moyen, minimum et maximum
-  - Pourcentage d’articles en stock
-
-- **Gestion des états vides** et traitement basique des erreurs
+| Catégorie        | Description                                                                             |
+| :--------------- | :-------------------------------------------------------------------------------------- |
+| **Tri**          | Tri de données dynamique (numérique et textuel) en cliquant sur l'en-tête de colonne.   |
+| **Filtres**      | Recherche par texte avec délai (debounce) et filtres par catégorie ou stock.            |
+| **Pagination**   | Navigation optimisée entre les pages, avec une taille d'affichage configurable.         |
+| **Statistiques** | Affichage de résumés dynamiques : prix moyen, prix min/max, nombre d'articles en stock. |
 
 ---
 
-## Structure du projet
+## Architecture et technologies
 
-```
-data-dashboard/
-├─ index.html
-├─ src/
-│  ├─ main.ts
-│  ├─ types.ts
-│  ├─ data/
-│  │  └─ products.json
-│  ├─ core/
-│  │  ├─ state.ts
-│  │  └─ utils.ts
-│  ├─ ui/
-│  │  ├─ table.ts
-│  │  ├─ controls.ts
-│  │  └─ summary.ts
-│  └─ logic/
-│     ├─ sort.ts
-│     ├─ filter.ts
-│     └─ paginate.ts
-└─ styles.css
-```
+- **TypeScript** : pour un code robuste, sûr et facile à maintenir.
+- **Vite** : pour un environnement de développement rapide et moderne.
+- **Tailwind CSS** : pour un design minimaliste et modulaire sans dépendances de composants.
+- **API du navigateur** : Utilisation exclusive du DOM et des modules ES.
+
+Le code est organisé de manière modulaire :
+
+- `logic/` : contient les fonctions de traitement de données (tri, filtrage, pagination).
+- `core/` : gère l'état global de l'application et les utilitaires.
+- `ui/` : responsable de la création et de la mise à jour des composants de l'interface.
 
 ---
 
-## Installation & Démarrage
+## Démarrage rapide
 
-1. **Cloner le dépôt**
+1.  **Cloner le projet :**
 
-   ```bash
-   git clone https://github.com/votre-utilisateur/data-dashboard.git
-   cd data-dashboard
-   ```
+    ```bash
+    git clone https://github.com/votre-utilisateur/data-dashboard.git
+    cd data-dashboard
+    ```
 
-2. **Installer les dépendances**
+2.  **Installer les dépendances :**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
-3. **Lancer le serveur de développement**
+3.  **Lancer l'application en mode développement :**
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
-4. **Construire la version de production**
+4.  **Construire la version de production :**
 
-   ```bash
-   npm run build
-   ```
-
----
-
-## Points techniques clés
-
-- Sécurité et robustesse grâce à TypeScript (`keyof`, génériques, tableaux en lecture seule)
-- Architecture modulaire pour la clarté et la maintenabilité
-- Fonctions utilitaires pour le tri, le filtrage et la pagination
-- Gestion d’état sans bibliothèque externe
-- Design responsive avec Tailwind CSS
-- Aucun framework — uniquement API du navigateur et modules ES
+    ```bash
+    npm run build
+    ```
 
 ---
 
-## Intérêt pour la carrière
+## Perspectives et évolutions futures
 
-Ce projet démontre :
-
-- Une **maîtrise solide des fondamentaux JavaScript et TypeScript**
-- La capacité à concevoir des applications structurées et maintenables **sans dépendance à un framework**
-- Une expérience avec des outils modernes (Vite, Tailwind) et une architecture modulaire
-- Des compétences en manipulation de données (tri, filtrage, agrégation)
-- Une adaptabilité aux projets modernes comme aux bases de code existantes
-
-Pour un recruteur, ce projet illustre :
-
-- La polyvalence technique
-- La clarté du code
-- L’autonomie dans la conception et l’implémentation de fonctionnalités complètes
+- Consommation de données depuis une API REST.
+- Persistance de l'état de l'interface dans le stockage local du navigateur.
+- Ajout de graphiques de données pour une visualisation plus avancée.
 
 ---
-
-## Futures version
-
-- consommation d'API rest
 
 ## Licence
 
-MIT License – libre d’utilisation, modification et distribution.
-
----
+Ce projet est sous **licence MIT** – libre d’utilisation, de modification et de distribution.
