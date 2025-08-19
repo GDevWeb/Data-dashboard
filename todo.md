@@ -11,7 +11,7 @@
 - [x] **Day 2 — Render Table (Read‑Only)**
 - [x] **Day 3 — Sorting (Click Headers)**
 - [x] **Day 4 — Search & Filter**
-- [x] **Day 5 — Pagination + Summary**
+- [] **Day 5 — Pagination + Summary**
 - [ ] **Day 6 — Polish, Error Handling, Refactor**
 
 ---

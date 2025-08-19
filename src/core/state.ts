@@ -1,11 +1,4 @@
-import {
-  byCategory,
-  byStock,
-  inputFilter,
-  selectFilter,
-  selectFilterByStock,
-  textFilter,
-} from "../logic/filter";
+import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
@@ -15,7 +8,6 @@ import {
   prevButton,
 } from "../ui/paginationController";
 import { renderTable } from "../ui/table";
-import { debounce } from "./utils";
 
 export const appState = {
   allData: [] as Product[],
