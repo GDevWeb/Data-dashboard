@@ -1,5 +1,20 @@
 import type { Product } from "../types";
 
+export const filterDOMElements = {
+  inputFilter: document.querySelector(
+    "#inputFilter"
+  ) as HTMLInputElement | null,
+  selectFilter: document.querySelector(
+    "select#filterSelect"
+  ) as HTMLSelectElement | null,
+  selectFilterByStock: document.querySelector(
+    "select#filterByStock"
+  ) as HTMLSelectElement | null,
+};
+
+export const { inputFilter, selectFilter, selectFilterByStock } =
+  filterDOMElements;
+
 export function textFilter(products: Product[], query: string): Product[] {
   if (query.trim() === "") {
     return products;

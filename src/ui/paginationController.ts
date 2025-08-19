@@ -1,6 +1,7 @@
-// paginationController.Ts
-
 export const paginationDOMElements = {
+  paginationContainer: document.querySelector(
+    "#pagination-numbers"
+  ) as HTMLElement | null,
   prevButton: document.querySelector(
     "#prev-button"
   ) as HTMLButtonElement | null,
@@ -8,16 +9,24 @@ export const paginationDOMElements = {
     "#next-button"
   ) as HTMLButtonElement | null,
   paginationNumbers: document.querySelector("#pagination-numbers"),
+  selectItemsPerPage: document.querySelector(
+    "#selectItemsPerPage"
+  ) as HTMLSelectElement,
 };
+
+export const {
+  paginationContainer,
+  prevButton,
+  nextButton,
+  selectItemsPerPage,
+} = paginationDOMElements;
 
 /* ***Pagination*** */
 export function createPagination(
   totalPages: number,
   state: Object,
-  func: Function
+  func: (partial: { currentPage: number }) => void
 ) {
-  const paginationContainer = document.querySelector("#pagination-numbers");
-
   if (paginationContainer) {
     paginationContainer.innerHTML = "";
 
@@ -40,5 +49,43 @@ export function createPagination(
       });
       paginationContainer.appendChild(pageButton);
     }
+    createSelectElementsPerPage(paginationContainer, func);
   }
+}
+
+export function createSelectElementsPerPage(
+  paginationContainer: HTMLElement,
+  obj: (partial: { itemsPerPage: number; currentPage: number }) => void
+) {
+  const optionValues = [10, 15, 20];
+
+  const selectElement = document.createElement("select");
+  selectElement.id = "selectItemsPerPage";
+  selectElement.classList.add();
+  optionValues.forEach((value) => {
+    const option = document.createElement("option");
+
+    if (value === 10) {
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.innerHTML = "Items per page";
+      defaultOption.selected = true;
+      defaultOption.disabled = true;
+      selectElement.appendChild(defaultOption);
+    }
+
+    option.value = value.toString();
+    option.innerHTML = value.toString();
+    selectElement.appendChild(option);
+    paginationContainer.appendChild(selectElement);
+  });
+
+  selectElement.addEventListener("change", () => {
+    obj({
+      itemsPerPage: Number(selectElement.value),
+      currentPage: 1,
+    });
+  });
+
+  return selectElement;
 }
