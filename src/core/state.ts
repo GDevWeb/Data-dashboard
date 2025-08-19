@@ -7,7 +7,11 @@ import {
   nextButton,
   prevButton,
 } from "../ui/paginationController";
-import { renderSummary } from "../ui/summary";
+import {
+  renderSummary,
+  summaryCurrentContainer,
+  summaryGlobalContainer,
+} from "../ui/summary";
 import { renderTable } from "../ui/table";
 
 export const appState = {
@@ -94,7 +98,13 @@ export function updateSate(
   }
 
   // Summary
-  renderSummary(appState.allData);
+  if (summaryGlobalContainer) {
+    renderSummary(summaryGlobalContainer, appState.allData);
+  }
+
+  if (summaryCurrentContainer) {
+    renderSummary(summaryCurrentContainer, appState.visibleData);
+  }
 
   // ***Table***
   const table = document.querySelector(

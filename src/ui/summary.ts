@@ -1,22 +1,30 @@
+//summary.ts
 import type { Product } from "../types";
 
 export const summaryDOMElements = {
-  summaryContainer: document.querySelector(
-    "#summary-container"
+  summaryGlobalContainer: document.querySelector(
+    "#summary-global-container"
+  ) as HTMLDivElement | null,
+  summaryCurrentContainer: document.querySelector(
+    "#summary-current-container"
   ) as HTMLDivElement | null,
 };
 
-const { summaryContainer } = summaryDOMElements;
+export const { summaryGlobalContainer, summaryCurrentContainer } =
+  summaryDOMElements;
 
 /**
  * Renders a summary of product data, including total references, average price, price range, and out-of-stock count.
  * @param data The array of products to summarize.
  */
-export function renderSummary(data: Product[]): void {
-  if (!summaryContainer) return;
+export function renderSummary(
+  container: HTMLDivElement,
+  data: Product[]
+): void {
+  if (!container) return;
 
   if (data.length === 0) {
-    summaryContainer.innerHTML = "No data to summarize";
+    container.innerHTML = "No data to summarize";
     return;
   }
 
@@ -28,6 +36,7 @@ export function renderSummary(data: Product[]): void {
   // averagePrice
   const averagePrice =
     data.reduce((acc, product) => acc + product.price, 0) / data.length;
+
   const outPutAveragePrice = document.createElement("output");
   outPutAveragePrice.innerHTML = `<strong class="text-shadow-lg">Average price<strong> <span class="text-blue-500 text-lg font-bold">${averagePrice.toFixed(
     2
@@ -50,9 +59,11 @@ export function renderSummary(data: Product[]): void {
   console.log(outOfStock);
 
   // Render
-  summaryContainer.innerHTML = "";
-  summaryContainer.appendChild(outPutTotalCount);
-  summaryContainer.appendChild(outPutMinMaxPrice);
-  summaryContainer.appendChild(outPutAveragePrice);
-  summaryContainer.appendChild(outOfStockElement);
+  container.innerHTML = "";
+  container.append(
+    outPutTotalCount,
+    outPutMinMaxPrice,
+    outPutAveragePrice,
+    outOfStockElement
+  );
 }
