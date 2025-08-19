@@ -7,6 +7,7 @@ import {
   nextButton,
   prevButton,
 } from "../ui/paginationController";
+import { renderSummary } from "../ui/summary";
 import { renderTable } from "../ui/table";
 
 export const appState = {
@@ -75,7 +76,7 @@ export function updateSate(
   appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
   createPagination(appState.totalPages, appState.currentPage, updateSate);
 
-  // *** Extract logic*** //
+  // *** Extract logic***
   if (prevButton) {
     prevButton.disabled = appState.currentPage <= 1;
   }
@@ -91,6 +92,9 @@ export function updateSate(
     prevButton?.classList.remove("disabled");
     nextButton?.classList.remove("disabled");
   }
+
+  // Summary
+  renderSummary(appState.allData);
 
   // ***Table***
   const table = document.querySelector(

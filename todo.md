@@ -28,3 +28,14 @@
 - [ ] Empty/loading/error states
 - [ ] Utils & refactor
 - [ ] (Opt) Persist state / CSV / tests
+
+---
+
+### Upgrades
+
+- Handling several pages > 10- Add a "Clear Filters" button - Limit pagination per group of 10- Add a "Clear Filters" button
+- Add unit tests
+- Implement dark mode
+- Export data to CSV/PDF
+- User authentication and personalized dashboards
+- Integrate with a backend API for dynamic data fetching
