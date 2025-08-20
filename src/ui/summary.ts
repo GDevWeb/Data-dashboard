@@ -1,17 +1,4 @@
-//summary.ts
 import type { Product } from "../types";
-
-export const summaryDOMElements = {
-  summaryGlobalContainer: document.querySelector(
-    "#summary-global-container"
-  ) as HTMLDivElement | null,
-  summaryCurrentContainer: document.querySelector(
-    "#summary-current-container"
-  ) as HTMLDivElement | null,
-};
-
-export const { summaryGlobalContainer, summaryCurrentContainer } =
-  summaryDOMElements;
 
 /**
  * Renders a summary of product data, including total references, average price, price range, and out-of-stock count.
@@ -44,6 +31,7 @@ export function renderSummary(
 
   // min/max price
   const minPrice = Math.min(...data.map((product) => product.price));
+
   const maxPrice = Math.max(...data.map((product) => product.price));
 
   const outPutMinMaxPrice = document.createElement("output");

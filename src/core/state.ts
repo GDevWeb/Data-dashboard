@@ -1,17 +1,15 @@
+import {
+  nextButton,
+  prevButton,
+  summaryCurrentContainer,
+  summaryGlobalContainer,
+} from "../dom";
 import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
-import {
-  createPagination,
-  nextButton,
-  prevButton,
-} from "../ui/paginationController";
-import {
-  renderSummary,
-  summaryCurrentContainer,
-  summaryGlobalContainer,
-} from "../ui/summary";
+import { createPagination } from "../ui/paginationController";
+import { renderSummary } from "../ui/summary";
 import { renderTable } from "../ui/table";
 
 export const appState = {

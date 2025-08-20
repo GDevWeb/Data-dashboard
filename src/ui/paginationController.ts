@@ -1,28 +1,4 @@
-/**
- * DOM elements related to pagination.
- */
-export const paginationDOMElements = {
-  paginationContainer: document.querySelector(
-    "#pagination-numbers"
-  ) as HTMLElement | null,
-  prevButton: document.querySelector(
-    "#prev-button"
-  ) as HTMLButtonElement | null,
-  nextButton: document.querySelector(
-    "#next-button"
-  ) as HTMLButtonElement | null,
-  paginationNumbers: document.querySelector("#pagination-numbers"),
-  selectItemsPerPage: document.querySelector(
-    "#selectItemsPerPage"
-  ) as HTMLSelectElement,
-};
-
-export const {
-  paginationContainer,
-  prevButton,
-  nextButton,
-  selectItemsPerPage,
-} = paginationDOMElements;
+import { paginationContainer } from "../dom";
 
 /* ***Pagination*** */
 /**
