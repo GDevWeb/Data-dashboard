@@ -1,20 +1,21 @@
+import {
+  productTable,
+  summaryCurrentContainer,
+  summaryGlobalContainer,
+} from "../dom";
 import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
-import type { Dir, Product, SortKey } from "../types";
+import type { Dir, Product, SortKey, typeState } from "../types";
 import {
   createPagination,
-  nextButton,
-  prevButton,
+  navigatePagination,
+  togglePaginationButton,
 } from "../ui/paginationController";
-import {
-  renderSummary,
-  summaryCurrentContainer,
-  summaryGlobalContainer,
-} from "../ui/summary";
+import { renderSummary } from "../ui/summary";
 import { renderTable } from "../ui/table";
 
-export const appState = {
+export const appState: typeState = {
   allData: [] as Product[],
   visibleData: [] as Product[],
   sortKey: "id" as SortKey,
@@ -32,14 +33,14 @@ export function initState(products: Product[]) {
   appState.totalPages = Math.ceil(
     appState.allData.length / appState.itemsPerPage
   );
-  createPagination(appState.totalPages, appState.currentPage, updateSate);
+  createPagination(appState, updateSate);
   updateSate({});
 }
 
 export function updateSate(
   partial: Partial<
     Pick<
-      typeof appState,
+      typeState,
       | "sortKey"
       | "sortDir"
       | "searchText"
@@ -53,76 +54,127 @@ export function updateSate(
   Object.assign(appState, partial);
   let data = [...appState.allData];
 
-  // 1. set on filter
-  data = textFilter(data, appState.searchText);
+  const {
+    allData,
+    visibleData,
+    sortKey,
+    sortDir,
+    searchText,
+    searchCategory,
+    searchStock,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+  } = appState;
+
+  // ***Filter and Sort***
+  const filteredAndSortedData = applyFilterAndSort(
+    data,
+    searchText,
+    searchCategory,
+    searchStock,
+    sortKey,
+    sortDir
+  );
+
+  // ***Pagination***
+  handlePagination(
+    filteredAndSortedData,
+    currentPage,
+    itemsPerPage,
+    totalPages
+  );
+
+  // ***Summary***
+  handleSummaryView(filteredAndSortedData, appState.visibleData);
+
+  // ***Table***
+  if (productTable) renderTable(productTable, appState.visibleData);
+}
+
+/* ***Filter and Sort */
+/**
+ * Applies filters and sorting to the product data.
+ * @param data The array of products to filter and sort.
+ * @param searchText The text to filter by (name and category).
+ * @param searchCategory The category to filter by.
+ * @param searchStock The stock status to filter by ('true', 'false', or '').
+ * @param sortKey The key to sort by.
+ * @param sortDir The direction to sort by ('asc' or 'desc').
+ * @returns The filtered and sorted array of products.
+ */
+function applyFilterAndSort(
+  data: Product[],
+  searchText: string,
+  searchCategory: string,
+  searchStock: string,
+  sortKey: string,
+  sortDir: string
+) {
+  data = textFilter(data, searchText);
 
   // 2. by category
-  data = byCategory(data, appState.searchCategory);
-  console.log("From state - data = byCategory", data);
+  data = byCategory(data, searchCategory);
 
+  // 3. by stock
   let stockValue: true | false | "" = "";
 
-  if (appState.searchStock === "true") stockValue = true;
-  else if (appState.searchStock === "false") stockValue = false;
+  if (searchStock === "true") stockValue = true;
+  else if (searchStock === "false") stockValue = false;
 
   data = byStock(data, stockValue);
 
   // 4. set on sort
-  data = sort(data, appState.sortKey, appState.sortDir);
+  data = sort(data, sortKey, sortDir);
+  return data;
+}
 
-  // 5.pagination
-  appState.visibleData = paginate(
-    data,
-    appState.currentPage,
-    appState.itemsPerPage
-  );
+/* ***Summary View*** */
+/**
+ * Handles the rendering of summary information for both global and currently visible data.
+ * @param allData The array of all products.
+ * @param visibleData The array of currently visible products.
+ */
 
-  appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
-  createPagination(appState.totalPages, appState.currentPage, updateSate);
-
-  // *** Extract logic***
-  if (prevButton) {
-    prevButton.disabled = appState.currentPage <= 1;
-  }
-
-  if (nextButton) {
-    nextButton.disabled = appState.currentPage >= appState.totalPages;
-  }
-
-  if (appState.totalPages <= 1) {
-    prevButton?.classList.add("disabled");
-    nextButton?.classList.add("disabled");
-  } else {
-    prevButton?.classList.remove("disabled");
-    nextButton?.classList.remove("disabled");
-  }
-
-  // Summary
+function handleSummaryView(
+  filteredAndSortedData: Product[],
+  visibleData: Product[]
+) {
   if (summaryGlobalContainer) {
-    renderSummary(summaryGlobalContainer, appState.allData);
+    renderSummary(summaryGlobalContainer, filteredAndSortedData);
   }
 
   if (summaryCurrentContainer) {
-    renderSummary(summaryCurrentContainer, appState.visibleData);
+    renderSummary(summaryCurrentContainer, visibleData);
   }
-
-  // ***Table***
-  const table = document.querySelector(
-    "#productTable"
-  ) as HTMLTableElement | null;
-
-  if (table) renderTable(table, appState.visibleData);
 }
 
 /* ***Pagination*** */
-prevButton?.addEventListener("click", () => {
-  if (appState.currentPage > 1) {
-    updateSate({ currentPage: appState.currentPage - 1 });
-  }
-});
+/**
+ * Handles pagination logic, including updating visible data, total pages,
+ * creating pagination buttons, and toggling pagination button states.
+ * @param data The array of products to paginate.
+ * @param currentPage The current page number.
+ * @param itemsPerPage The number of items to display per page.
+ * @param totalPages The total number of pages.
+ */
 
-nextButton?.addEventListener("click", () => {
-  if (appState.currentPage < appState.totalPages) {
-    updateSate({ currentPage: appState.currentPage + 1 });
-  }
-});
+function handlePagination(
+  data: Product[],
+  currentPage: number,
+  itemsPerPage: number,
+  totalPages: number
+) {
+  appState.visibleData = paginate(data, currentPage, itemsPerPage);
+
+  appState.totalPages = Math.ceil(data.length / itemsPerPage);
+  createPagination(appState, updateSate);
+
+  // Update pagination buttons
+  togglePaginationButton({
+    currentPage,
+    totalPages,
+  });
+}
+
+navigatePagination(appState);

@@ -10,3 +10,16 @@ export interface Product {
 export type SortKey = keyof Product;
 
 export type Dir = "asc" | "desc";
+
+export type typeState = {
+  allData: Product[];
+  visibleData: Product[];
+  sortKey: SortKey;
+  sortDir: Dir;
+  searchText: string;
+  searchCategory: string;
+  searchStock: string;
+  currentPage: number;
+  itemsPerPage: number;
+  totalPages: number;
+};

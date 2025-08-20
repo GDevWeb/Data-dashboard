@@ -1,28 +1,5 @@
-/**
- * DOM elements related to pagination.
- */
-export const paginationDOMElements = {
-  paginationContainer: document.querySelector(
-    "#pagination-numbers"
-  ) as HTMLElement | null,
-  prevButton: document.querySelector(
-    "#prev-button"
-  ) as HTMLButtonElement | null,
-  nextButton: document.querySelector(
-    "#next-button"
-  ) as HTMLButtonElement | null,
-  paginationNumbers: document.querySelector("#pagination-numbers"),
-  selectItemsPerPage: document.querySelector(
-    "#selectItemsPerPage"
-  ) as HTMLSelectElement,
-};
-
-export const {
-  paginationContainer,
-  prevButton,
-  nextButton,
-  selectItemsPerPage,
-} = paginationDOMElements;
+import { updateSate } from "../core/state";
+import { nextButton, paginationContainer, prevButton } from "../dom";
 
 /* ***Pagination*** */
 /**
@@ -33,10 +10,10 @@ export const {
  */
 
 export function createPagination(
-  totalPages: number,
-  state: Object,
+  state: { totalPages: number; currentPage: number },
   func: (partial: { currentPage: number }) => void
 ) {
+  const { totalPages, currentPage } = state;
   if (paginationContainer) {
     paginationContainer.innerHTML = "";
 
@@ -50,7 +27,7 @@ export function createPagination(
       pageButton.textContent = i.toString();
       pageButton.classList.add("pagination-button");
 
-      if (i === state) {
+      if (i === currentPage) {
         pageButton.classList.add("active");
       }
 
@@ -103,4 +80,53 @@ export function createSelectElementsPerPage(
   });
 
   return selectElement;
+}
+
+/**
+ * Toggles the disabled state of the previous and next pagination buttons
+ * based on the current page and total number of pages.
+ * @param state An object containing the current page number and total number of pages.
+ */
+
+export function togglePaginationButton(state: {
+  currentPage: number;
+  totalPages: number;
+}) {
+  if (prevButton) {
+    prevButton.disabled = state.currentPage <= 1;
+  }
+
+  if (nextButton) {
+    nextButton.disabled = state.currentPage >= state.totalPages;
+  }
+
+  if (state.totalPages <= 1) {
+    prevButton?.classList.add("disabled");
+    nextButton?.classList.add("disabled");
+  } else {
+    prevButton?.classList.remove("disabled");
+    nextButton?.classList.remove("disabled");
+  }
+}
+
+/**
+ * Handles navigation for pagination buttons (previous and next).
+ * @param state An object containing the current page number and total number of pages.
+ */
+
+export function navigatePagination(state: {
+  currentPage: number;
+  totalPages: number;
+}) {
+  prevButton?.addEventListener("click", () => {
+    if (state.currentPage > 1) {
+      updateSate({ currentPage: state.currentPage - 1 });
+    }
+  });
+
+  nextButton?.addEventListener("click", () => {
+    if (state.currentPage < state.totalPages) {
+      updateSate({ currentPage: state.currentPage + 1 });
+    }
+  });
 }

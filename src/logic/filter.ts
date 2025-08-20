@@ -1,33 +1,13 @@
 import { updateSate } from "../core/state";
 import { debounce } from "../core/utils";
-import type { Product } from "../types";
-import { createSelectElementsPerPage } from "../ui/paginationController";
-
-/**
- * DOM elements related to filtering.
- */
-
-export const filterDOMElements = {
-  filterContainer: document.querySelector(
-    "#filterContainer"
-  ) as HTMLDivElement | null,
-  inputFilter: document.querySelector(
-    "#inputFilter"
-  ) as HTMLInputElement | null,
-  selectFilter: document.querySelector(
-    "select#filterSelect"
-  ) as HTMLSelectElement | null,
-  selectFilterByStock: document.querySelector(
-    "select#filterByStock"
-  ) as HTMLSelectElement | null,
-};
-
-export const {
+import {
   filterContainer,
   inputFilter,
   selectFilter,
   selectFilterByStock,
-} = filterDOMElements;
+} from "../dom";
+import type { Product } from "../types";
+import { createSelectElementsPerPage } from "../ui/paginationController";
 
 /**
  * Filters an array of products based on a text query, matching product name or category.

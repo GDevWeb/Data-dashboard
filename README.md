@@ -4,7 +4,7 @@
 <img src= "./public/data-dashboard.png" alt="Data Dashboard Social Card" style="width:80%; border-radius:10px">
 </div>
 
-## Présentation du projet
+### Présentation du projet
 
 Ce projet est un **tableau de bord de données interactif** construit de zéro en utilisant **TypeScript**, **Vite** et **Tailwind CSS**. Il a été conçu comme un exercice de révision pour consolider les fondamentaux de la programmation web sans aucun framework frontend.
 
