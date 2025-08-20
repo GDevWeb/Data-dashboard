@@ -68,32 +68,42 @@ export function updateSate(
   } = appState;
 
   // ***Filter***
-  // 1. set on filter
-  applyFilterAndSort();
 
-  function applyFilterAndSort() {
-    // 1. by text (name and category)
-    data = textFilter(data, searchText);
+  // 1. by text (name and category)
+  data = textFilter(data, searchText);
 
-    // 2. by category
-    data = byCategory(data, searchCategory);
+  // 2. by category
+  data = byCategory(data, searchCategory);
 
-    // 3. by stock
-    let stockValue: true | false | "" = "";
+  // 3. by stock
+  let stockValue: true | false | "" = "";
 
-    if (searchStock === "true") stockValue = true;
-    else if (searchStock === "false") stockValue = false;
+  if (searchStock === "true") stockValue = true;
+  else if (searchStock === "false") stockValue = false;
 
-    data = byStock(data, stockValue);
+  data = byStock(data, stockValue);
 
-    // 4. set on sort
-    data = sort(data, sortKey, sortDir);
-  }
+  // 4. set on sort
+  data = sort(data, sortKey, sortDir);
 
   // ***5.pagination***
   handlePagination(data, currentPage, itemsPerPage, totalPages);
 
-  // ***Summary***
+  // ***6.Summary***
+  handleSummaryView(allData, visibleData);
+
+  // ***Table***
+  if (productTable) renderTable(productTable, visibleData);
+}
+
+/* ***Summary View*** */
+/**
+ * Handles the rendering of summary information for both global and currently visible data.
+ * @param allData The array of all products.
+ * @param visibleData The array of currently visible products.
+ */
+
+function handleSummaryView(allData: Product[], visibleData: Product[]) {
   if (summaryGlobalContainer) {
     renderSummary(summaryGlobalContainer, allData);
   }
@@ -101,14 +111,9 @@ export function updateSate(
   if (summaryCurrentContainer) {
     renderSummary(summaryCurrentContainer, visibleData);
   }
-
-  // ***Table***
-  if (productTable) renderTable(productTable, visibleData);
 }
 
 /* ***Pagination*** */
-navigatePagination(appState);
-
 /**
  * Handles pagination logic, including updating visible data, total pages,
  * creating pagination buttons, and toggling pagination button states.
@@ -117,6 +122,7 @@ navigatePagination(appState);
  * @param itemsPerPage The number of items to display per page.
  * @param totalPages The total number of pages.
  */
+
 function handlePagination(
   data: Product[],
   currentPage: number,
@@ -134,3 +140,5 @@ function handlePagination(
     totalPages,
   });
 }
+
+navigatePagination(appState);
