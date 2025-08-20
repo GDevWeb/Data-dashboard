@@ -67,9 +67,50 @@ export function updateSate(
     totalPages,
   } = appState;
 
-  // ***Filter***
+  // ***Filter and Sort***
+  const filteredAndSortedData = applyFilterAndSort(
+    data,
+    searchText,
+    searchCategory,
+    searchStock,
+    sortKey,
+    sortDir
+  );
 
-  // 1. by text (name and category)
+  // ***Pagination***
+  handlePagination(
+    filteredAndSortedData,
+    currentPage,
+    itemsPerPage,
+    totalPages
+  );
+
+  // ***Summary***
+  handleSummaryView(filteredAndSortedData, appState.visibleData);
+
+  // ***Table***
+  if (productTable) renderTable(productTable, appState.visibleData);
+}
+
+/* ***Filter and Sort */
+/**
+ * Applies filters and sorting to the product data.
+ * @param data The array of products to filter and sort.
+ * @param searchText The text to filter by (name and category).
+ * @param searchCategory The category to filter by.
+ * @param searchStock The stock status to filter by ('true', 'false', or '').
+ * @param sortKey The key to sort by.
+ * @param sortDir The direction to sort by ('asc' or 'desc').
+ * @returns The filtered and sorted array of products.
+ */
+function applyFilterAndSort(
+  data: Product[],
+  searchText: string,
+  searchCategory: string,
+  searchStock: string,
+  sortKey: string,
+  sortDir: string
+) {
   data = textFilter(data, searchText);
 
   // 2. by category
@@ -85,15 +126,7 @@ export function updateSate(
 
   // 4. set on sort
   data = sort(data, sortKey, sortDir);
-
-  // ***5.pagination***
-  handlePagination(data, currentPage, itemsPerPage, totalPages);
-
-  // ***6.Summary***
-  handleSummaryView(allData, visibleData);
-
-  // ***Table***
-  if (productTable) renderTable(productTable, visibleData);
+  return data;
 }
 
 /* ***Summary View*** */
@@ -103,9 +136,12 @@ export function updateSate(
  * @param visibleData The array of currently visible products.
  */
 
-function handleSummaryView(allData: Product[], visibleData: Product[]) {
+function handleSummaryView(
+  filteredAndSortedData: Product[],
+  visibleData: Product[]
+) {
   if (summaryGlobalContainer) {
-    renderSummary(summaryGlobalContainer, allData);
+    renderSummary(summaryGlobalContainer, filteredAndSortedData);
   }
 
   if (summaryCurrentContainer) {

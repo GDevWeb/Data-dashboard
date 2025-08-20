@@ -1,7 +1,12 @@
 import { initState, updateSate } from "./core/state";
 import { debounce } from "./core/utils";
 import products from "./data/products.json";
-import { inputFilter, selectFilter, selectFilterByStock } from "./dom";
+import {
+  inputFilter,
+  selectFilter,
+  selectFilterByStock,
+  selectItemsPerPage,
+} from "./dom";
 import { createSelectOptions } from "./ui/selectOptionsController";
 
 /* ***Filter*** */
@@ -21,6 +26,13 @@ function setUpEventListeners() {
 
   selectFilterByStock?.addEventListener("change", (e: Event) => {
     updateSate({ searchStock: (e.target as HTMLSelectElement).value });
+  });
+
+  selectItemsPerPage?.addEventListener("change", (e: Event) => {
+    updateSate({
+      itemsPerPage: Number((e.target as HTMLSelectElement).value),
+      currentPage: 1,
+    });
   });
 }
 

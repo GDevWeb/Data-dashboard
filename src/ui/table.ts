@@ -12,7 +12,6 @@ export function renderTable(
     }
 
     if (container && data) {
-      console.log("renderTable running");
       container.innerHTML = `
         <thead class="bg-gray-50">
           <tr class="text-center text-lg font-medium text-gray-500 uppercase tracking-wider">
