@@ -2,6 +2,7 @@
  * DOM elements.
  */
 
+// create an appropriate interface the following domelements
 export const appRoot = document.querySelector("#app") as HTMLDivElement | null;
 
 /**

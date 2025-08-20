@@ -1,6 +1,5 @@
 import {
-  nextButton,
-  prevButton,
+  productTable,
   summaryCurrentContainer,
   summaryGlobalContainer,
 } from "../dom";
@@ -8,7 +7,11 @@ import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
 import type { Dir, Product, SortKey } from "../types";
-import { createPagination } from "../ui/paginationController";
+import {
+  createPagination,
+  navigatePagination,
+  togglePaginationButton,
+} from "../ui/paginationController";
 import { renderSummary } from "../ui/summary";
 import { renderTable } from "../ui/table";
 
@@ -34,10 +37,12 @@ export function initState(products: Product[]) {
   updateSate({});
 }
 
+type typeState = typeof appState;
+
 export function updateSate(
   partial: Partial<
     Pick<
-      typeof appState,
+      typeState,
       | "sortKey"
       | "sortDir"
       | "searchText"
@@ -78,24 +83,13 @@ export function updateSate(
   appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
   createPagination(appState.totalPages, appState.currentPage, updateSate);
 
-  // *** Extract logic***
-  if (prevButton) {
-    prevButton.disabled = appState.currentPage <= 1;
-  }
+  // Update pagination buttons
+  togglePaginationButton({
+    currentPage: appState.currentPage,
+    totalPages: appState.totalPages,
+  });
 
-  if (nextButton) {
-    nextButton.disabled = appState.currentPage >= appState.totalPages;
-  }
-
-  if (appState.totalPages <= 1) {
-    prevButton?.classList.add("disabled");
-    nextButton?.classList.add("disabled");
-  } else {
-    prevButton?.classList.remove("disabled");
-    nextButton?.classList.remove("disabled");
-  }
-
-  // Summary
+  // ***Summary***
   if (summaryGlobalContainer) {
     renderSummary(summaryGlobalContainer, appState.allData);
   }
@@ -105,22 +99,8 @@ export function updateSate(
   }
 
   // ***Table***
-  const table = document.querySelector(
-    "#productTable"
-  ) as HTMLTableElement | null;
-
-  if (table) renderTable(table, appState.visibleData);
+  if (productTable) renderTable(productTable, appState.visibleData);
 }
 
 /* ***Pagination*** */
-prevButton?.addEventListener("click", () => {
-  if (appState.currentPage > 1) {
-    updateSate({ currentPage: appState.currentPage - 1 });
-  }
-});
-
-nextButton?.addEventListener("click", () => {
-  if (appState.currentPage < appState.totalPages) {
-    updateSate({ currentPage: appState.currentPage + 1 });
-  }
-});
+navigatePagination(appState);
