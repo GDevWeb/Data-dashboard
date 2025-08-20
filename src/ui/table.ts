@@ -37,6 +37,9 @@ export function renderTable(
               <button data-sort-rating="desc" type="button" class="sort-button cursor-pointer" data-sort-key="rating" data-sort-dir="desc">▼</button>
             </th>
             <th data-filter="stock" class="px-6 py-3">Stock
+              <button data-sort-stock="asc" type="button" class="sort-button cursor-pointer" data-sort-key="stock" data-sort-dir="asc" >▲</button>
+              <button data-sort-stock="desc" type="button" class="sort-button cursor-pointer" data-sort-key="stock" data-sort-dir="desc">▼</button>
+
             </th>
           </tr>
         </thead>

@@ -10,10 +10,10 @@ import { nextButton, paginationContainer, prevButton } from "../dom";
  */
 
 export function createPagination(
-  totalPages: number,
-  state: Object,
+  state: { totalPages: number; currentPage: number },
   func: (partial: { currentPage: number }) => void
 ) {
+  const { totalPages, currentPage } = state;
   if (paginationContainer) {
     paginationContainer.innerHTML = "";
 
@@ -27,7 +27,7 @@ export function createPagination(
       pageButton.textContent = i.toString();
       pageButton.classList.add("pagination-button");
 
-      if (i === state) {
+      if (i === currentPage) {
         pageButton.classList.add("active");
       }
 

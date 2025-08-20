@@ -6,7 +6,7 @@ import {
 import { byCategory, byStock, textFilter } from "../logic/filter";
 import { paginate } from "../logic/paginate";
 import { sort } from "../logic/sort";
-import type { Dir, Product, SortKey } from "../types";
+import type { Dir, Product, SortKey, typeState } from "../types";
 import {
   createPagination,
   navigatePagination,
@@ -15,7 +15,7 @@ import {
 import { renderSummary } from "../ui/summary";
 import { renderTable } from "../ui/table";
 
-export const appState = {
+export const appState: typeState = {
   allData: [] as Product[],
   visibleData: [] as Product[],
   sortKey: "id" as SortKey,
@@ -33,11 +33,9 @@ export function initState(products: Product[]) {
   appState.totalPages = Math.ceil(
     appState.allData.length / appState.itemsPerPage
   );
-  createPagination(appState.totalPages, appState.currentPage, updateSate);
+  createPagination(appState, updateSate);
   updateSate({});
 }
-
-type typeState = typeof appState;
 
 export function updateSate(
   partial: Partial<
@@ -56,50 +54,83 @@ export function updateSate(
   Object.assign(appState, partial);
   let data = [...appState.allData];
 
+  const {
+    allData,
+    visibleData,
+    sortKey,
+    sortDir,
+    searchText,
+    searchCategory,
+    searchStock,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+  } = appState;
+
+  // ***Filter***
   // 1. set on filter
-  data = textFilter(data, appState.searchText);
+  applyFilterAndSort();
 
-  // 2. by category
-  data = byCategory(data, appState.searchCategory);
+  function applyFilterAndSort() {
+    // 1. by text (name and category)
+    data = textFilter(data, searchText);
 
-  let stockValue: true | false | "" = "";
+    // 2. by category
+    data = byCategory(data, searchCategory);
 
-  if (appState.searchStock === "true") stockValue = true;
-  else if (appState.searchStock === "false") stockValue = false;
+    // 3. by stock
+    let stockValue: true | false | "" = "";
 
-  data = byStock(data, stockValue);
+    if (searchStock === "true") stockValue = true;
+    else if (searchStock === "false") stockValue = false;
 
-  // 4. set on sort
-  data = sort(data, appState.sortKey, appState.sortDir);
+    data = byStock(data, stockValue);
 
-  // 5.pagination
-  appState.visibleData = paginate(
-    data,
-    appState.currentPage,
-    appState.itemsPerPage
-  );
+    // 4. set on sort
+    data = sort(data, sortKey, sortDir);
+  }
 
-  appState.totalPages = Math.ceil(data.length / appState.itemsPerPage);
-  createPagination(appState.totalPages, appState.currentPage, updateSate);
-
-  // Update pagination buttons
-  togglePaginationButton({
-    currentPage: appState.currentPage,
-    totalPages: appState.totalPages,
-  });
+  // ***5.pagination***
+  handlePagination(data, currentPage, itemsPerPage, totalPages);
 
   // ***Summary***
   if (summaryGlobalContainer) {
-    renderSummary(summaryGlobalContainer, appState.allData);
+    renderSummary(summaryGlobalContainer, allData);
   }
 
   if (summaryCurrentContainer) {
-    renderSummary(summaryCurrentContainer, appState.visibleData);
+    renderSummary(summaryCurrentContainer, visibleData);
   }
 
   // ***Table***
-  if (productTable) renderTable(productTable, appState.visibleData);
+  if (productTable) renderTable(productTable, visibleData);
 }
 
 /* ***Pagination*** */
 navigatePagination(appState);
+
+/**
+ * Handles pagination logic, including updating visible data, total pages,
+ * creating pagination buttons, and toggling pagination button states.
+ * @param data The array of products to paginate.
+ * @param currentPage The current page number.
+ * @param itemsPerPage The number of items to display per page.
+ * @param totalPages The total number of pages.
+ */
+function handlePagination(
+  data: Product[],
+  currentPage: number,
+  itemsPerPage: number,
+  totalPages: number
+) {
+  appState.visibleData = paginate(data, currentPage, itemsPerPage);
+
+  appState.totalPages = Math.ceil(data.length / itemsPerPage);
+  createPagination(appState, updateSate);
+
+  // Update pagination buttons
+  togglePaginationButton({
+    currentPage,
+    totalPages,
+  });
+}
