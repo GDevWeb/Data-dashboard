@@ -16,10 +16,17 @@ export function renderTable(
       container.innerHTML = `
         <thead class="bg-gray-50">
           <tr class="text-center text-lg font-medium text-gray-500 uppercase tracking-wider">
-            <th data-filter="id" class="px-6 py-3">ID</th>
+            <th data-filter="id" class="px-6 py-3">ID
+              <button data-sort-id="asc" type="button" class="sort-button cursor-pointer" data-sort-key="id" data-sort-dir="asc" >▲</button>
+              <button data-sort-id="desc" type="button" class="sort-button cursor-pointer" data-sort-key="id" data-sort-dir="desc">▼</button>
+            </th>
             <th data-filter="name" class="px-6 py-3">Name
+              <button data-sort-name="asc" type="button" class="sort-button cursor-pointer" data-sort-key="name" data-sort-dir="asc" >▲</button>
+              <button data-sort-name="desc" type="button" class="sort-button cursor-pointer" data-sort-key="name" data-sort-dir="desc">▼</button>
             </th>
             <th data-filter="category" class="px-6 py-3">Category
+              <button data-sort-category="asc" type="button" class="sort-button cursor-pointer" data-sort-key="category" data-sort-dir="asc" >▲</button>
+              <button data-sort-category="desc" type="button" class="sort-button cursor-pointer" data-sort-key="category" data-sort-dir="desc">▼</button>
             </th>
             <th data-filter="price" class="px-6 py-3">Price
               <button data-sort-price="asc" type="button" class="sort-button cursor-pointer" data-sort-key="price" data-sort-dir="asc" >▲</button>

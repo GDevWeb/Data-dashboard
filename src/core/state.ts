@@ -61,7 +61,6 @@ export function updateSate(
 
   // 2. by category
   data = byCategory(data, appState.searchCategory);
-  console.log("From state - data = byCategory", data);
 
   let stockValue: true | false | "" = "";
 

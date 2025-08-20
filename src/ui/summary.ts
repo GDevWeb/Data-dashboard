@@ -44,8 +44,6 @@ export function renderSummary(
   const outOfStockElement = document.createElement("output");
   outOfStockElement.innerHTML = `<strong class="text-shadow-lg">Out of stock<strong> <span class="text-red-500 text-lg font-bold">${outOfStock.toString()}</span>`;
 
-  console.log(outOfStock);
-
   // Render
   container.innerHTML = "";
   container.append(
