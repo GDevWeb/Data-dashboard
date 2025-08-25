@@ -4,11 +4,12 @@ CREATE TABLE IF NOT EXISTS categories (
     name VARCHAR(50) NOT NULL UNIQUE
 );
 
+-- Step 2: Create customers table
 ALTER TABLE customers
   DROP CONSTRAINT customers_email_check,
   ADD CONSTRAINT customers_email_check CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}$');
 
--- Si vous avez supprimé et recréé la table, utilisez ce code:
+-- Step 2: Create customers table
 CREATE TABLE IF NOT EXISTS customers (
     customer_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
