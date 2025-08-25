@@ -25,8 +25,8 @@
 - [x] Search (debounced), Filter (category/stock)
 - [x] Pagination (configurable page size)
 - [x] Summary (count, avg/min/max, % stock)
-- [ ] Empty/loading/error states
-- [ ] Utils & refactor
+- [x] Empty/loading/error states
+- [x] Utils & refactor
 - [ ] (Opt) Persist state / CSV / tests
 
 ---
