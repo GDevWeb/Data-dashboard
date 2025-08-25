@@ -55,8 +55,6 @@ export function updateSate(
   let data = [...appState.allData];
 
   const {
-    allData,
-    visibleData,
     sortKey,
     sortDir,
     searchText,
@@ -108,8 +106,8 @@ function applyFilterAndSort(
   searchText: string,
   searchCategory: string,
   searchStock: string,
-  sortKey: string,
-  sortDir: string
+  sortKey: SortKey,
+  sortDir: Dir
 ) {
   data = textFilter(data, searchText);
 
